@@ -195,9 +195,13 @@ def print_summary_by_category(transactions):
 
     dic = {}
     for i in transactions:
-        dic[i["category"]]
-        dic[i["category"]] = dic[i["category"]] + i["amount"]
-    
+       if dic.get(i.get("category")) == None:
+           dic[i.get("category")] = 0
+
+       dic[i.get("category")] = dic[i.get("category")] + i.get("amount")
+       
+    for key, value in dic.items():
+        print(f"{key}: £{value}")
 
     print("----------------------------")
 
