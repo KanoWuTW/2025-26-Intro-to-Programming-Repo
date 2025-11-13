@@ -8,7 +8,7 @@ With this program, you can:
 - Delete translation records.
 - View all transaction records.
 - View an overall financial summary (total income, total expense, and net balance).
-- View summaries categorized by income or expense type.
+- View summaries categorized by expense type.
 
 # How to Use This Program?
 
@@ -33,7 +33,7 @@ With this program, you can:
 
 - Only positive numeric values are accepted for the transaction amount.
 - All data is temporarily stored in memory. Transactions vanish after the program exits.
-- Inputs in descriptions and categories are case-sensitive (e.g., Food ≠ food). Please use consistent letters for them.
+- Inputs in descriptions and categories are case-sensitive and space-sensitive (e.g., Food ≠ food and "Food" ≠ "Food  "). Please type consistently.
 - Currency is assumed to be GBP**£**.
 
 # Test Plan
@@ -73,7 +73,7 @@ In this task, I created a function named `display_menu()` that runs when the pro
 
 ## Task 3
 
-In Task 3, I created a function, `add_transaction(current_transactions, transaction_type)`, that prompts users to create a new transaction record. I used try& except to prevent invalid input. Inside the try scope, `amount = float(input("Enter amount:"))`makes sure `amount` can only be float numbers, and `if amount < 0: raise ValueError()` ensures only positive numbers are accepted.
+In Task 3, I created a function, `add_transaction(current_transactions, transaction_type)`, that prompts users to create a new transaction record. I used try& except to prevent invalid input. Inside the try scope, `amount = float(input("Enter amount:"))`makes sure `amount` can only be float numbers, and `if amount < 0.01: print("\nError: Minimum transaction amount is one penny.")` ensures the minimum input is a penny.
 
 The user’s input will be stored in a temporary dictionary, `transac`, and this dictionary will be appended to `transactions` list.
 
@@ -100,15 +100,9 @@ transactions.remove(transactions[deleteIndex])
 
 In the last task, I wrote three functions: `calculate_summary(transactions)`, `print_overall_summary(summary_data)`, and `print_summary_by_category(transactions)`.
 
-- `calculate_summary(transactions)` first creates a temporary dictionary: `summary_data` to store total income, expense, and net balance. Then a for loop iterates through transactions to calculate and store total expense and income, and when they are done, net balance can be therefore calculated by reduce total income by total expense. Lastly, summary_data is returned by the function.
+- `calculate_summary(transactions)` first creates a temporary dictionary: `summary_data` and three temporary variables to store total income, expense, and net balance. Then a for loop iterates through transactions to calculate and store total expense and income, and when they are done, net balance can be therefore calculated by reduce total income by total expense. Lastly, summary_data is returned by the function.
 - `print_overall_summary(summary_data)` takes what returned by `calculate_summary(transactions)`as argument. It prints total expense, total income, and net balance.
-- `print_summary_by_category(transactions)` creates two temporary dictionaries: expense and income. Then a for loop iterates through transactions and assign them to their type of dictionary. In each dictionary, keys are the categories and values are the total amounts for each category. Finally, the data of temporary dictionaries is printed out and the function returns.
-
-In the last task, I wrote three functions: `calculate_summary(transactions)`, `print_overall_summary(summary_data)`, and `print_summary_by_category(transactions)`.
-
-- `calculate_summary(transactions)` first creates a temporary dictionary, `summary_data`, to store the total income, expense, and net balance. Then, a for loop iterates through transactions to calculate and store the total expense and income. When this is done, the net balance can be calculated by subtracting the total expense from the total income. Lastly, the function returns summary_data.
-- `print_overall_summary(summary_data)` takes what returned by `calculate_summary(transactions)`as argument. It prints total expense, total income, and net balance.
-- `print_summary_by_category(transactions)` creates two temporary dictionaries: one for expenses and one for income. Then, a for loop iterates through transactions and assigns them to their corresponding dictionary type. In each dictionary, the keys represent the categories, and the values represent the total amounts for each category. Finally, the data of temporary dictionaries is printed out, and the function returns.
+- `print_summary_by_category(transactions)` creates a temporary dictionary: expense. Then a for loop iterates through transactions and assign only expenses to the dictionary. In the dictionary, keys are the categories and values are the total amounts for each category. Finally, the data of temporary dictionary is printed out and the function returns.
 
 ## The missed part: Add Income
 
